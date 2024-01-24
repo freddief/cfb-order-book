@@ -1,9 +1,17 @@
-package com.cfbenchmarks.interview;
+package com.cfbenchmarks.interview.manager;
+
+import com.cfbenchmarks.interview.model.match.MatchResult;
+import com.cfbenchmarks.interview.model.order.Order;
+import com.cfbenchmarks.interview.model.order.Side;
 
 import java.util.List;
 import java.util.Optional;
 
-/** All functions in this class should throw if given null parameters */
+// TODO: Not null params
+
+/**
+ * All functions in this class should throw if given null parameters
+ */
 public interface OrderBookManager {
 
   /**
@@ -13,9 +21,10 @@ public interface OrderBookManager {
    * order as they arrive
    *
    * @param order new order to add <br>
+   * @return MatchResult the result of any matching that the order triggered
    * @see Order
    */
-  void addOrder(Order order);
+  MatchResult addOrder(Order order);
 
   /**
    * Delete an existing order. Returns false if no such order exists
@@ -31,9 +40,9 @@ public interface OrderBookManager {
    * <p>For buy orders - the highest price For sell orders - the lowest price
    *
    * @param instrument identifier of an instrument
-   * @param side either buy or sell
+   * @param side       either buy or sell
    * @return the best price, or Optional.empty() if there're no orders for the instrument on this
-   *     side
+   * side
    */
   Optional<Long> getBestPrice(String instrument, Side side);
 
@@ -43,10 +52,10 @@ public interface OrderBookManager {
    * <p>Result should contain orders in the same order as they arrive
    *
    * @param instrument identifier of an instrument
-   * @param side either buy or sell
-   * @param price requested price level
+   * @param side       either buy or sell
+   * @param price      requested price level
    * @return all orders, or empty list if there are no orders for the instrument on this side with
-   *     this price
+   * this price
    */
   List<Order> getOrdersAtLevel(String instrument, Side side, long price);
 }
